@@ -18,12 +18,14 @@ import org.apache.hadoop.io.IOUtils;
 
 public class HdfsFileSystemOperater {
 
-	private static String uri="hdfs://node8:9000/";
+	private static String uri="hdfs://127.0.0.1:9000/";
 	private static final Configuration conf;
 	private static FileSystem fs;
 	
 	static{
-		final String HADOOP_CONF_DIR = "file:///home/spark/opt/hadoop-2.6.0/etc/hadoop/";
+//		final String HADOOP_CONF_DIR = "file:///home/spark/opt/hadoop-2.6.0/etc/hadoop/";
+		final String HADOOP_CONF_DIR = System.getProperty("user.dir")+"\\src\\main\\config\\";
+		System.out.println(HADOOP_CONF_DIR);
 		conf=new Configuration();
 		conf.addResource(new Path(HADOOP_CONF_DIR + "core-site.xml"));
 		conf.addResource(new Path(HADOOP_CONF_DIR + "hdfs-site.xml"));
@@ -35,15 +37,14 @@ public class HdfsFileSystemOperater {
 			fs=FileSystem.get(URI.create(uri),conf);
 			System.out.println("configuration init completed");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	/**
 	 * 
-	 * @param src path支持文件或文件夹，若是文件夹整个上传，dst可以省略不写hdfs：//，在fs已设置
-	 * @param dst 弱势上传文件 dst path名应包括文件名，若是文件夹则是文件夹名
+	 * @param localSrc path支持文件或文件夹，若是文件夹整个上传，dst可以省略不写hdfs：//，在fs已设置
+	 * @param hdfsDst 弱势上传文件 dst path名应包括文件名，若是文件夹则是文件夹名
 	 */
 	public static boolean copyFromLocalFile(String localSrc,String hdfsDst){
 		Path src=new Path(localSrc);
@@ -57,7 +58,6 @@ public class HdfsFileSystemOperater {
 			System.out.println("upload file["+src.toUri().toString()+"] with conf "+conf.get("fs.defaultFS")+" to "+dst.toUri().toString());
 			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -82,7 +82,6 @@ public class HdfsFileSystemOperater {
 			System.out.println("download file["+src.toUri().toString()+"] with conf "+conf.get("fs.defaultFS")+" to "+localdst);
 			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -100,10 +99,8 @@ public class HdfsFileSystemOperater {
 				fileList.add(fileStatus.getPath().toString());
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return fileList;
@@ -111,7 +108,7 @@ public class HdfsFileSystemOperater {
 	
 	/**
 	 * 
-	 * @param path 设置了delete参数为true，path可以是文件夹，可递归删除
+	 * @param pathName 设置了delete参数为true，path可以是文件夹，可递归删除
 	 * @return 
 	 */
 	public static boolean deleteFile(String pathName){
@@ -126,7 +123,6 @@ public class HdfsFileSystemOperater {
 				return false;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -145,7 +141,6 @@ public class HdfsFileSystemOperater {
 			System.out.println("new dir["+path.toUri().toString()+"] success");
 			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -153,12 +148,12 @@ public class HdfsFileSystemOperater {
 	
 	
 	public static void main(String[] args) {
-		copyFromLocalFile("/home/spark/input/", "/user/spark/example/");
-		List<String> fileList=listFile("/user/spark/example");
+		copyFromLocalFile("d:\\dir", "/user/lenovo/example/");
+		List<String> fileList=listFile("/user/lenovo/example");
 		for (String file : fileList) {
 			System.out.println(file);
 		}
-		downloadFile("/user/spark/example/file1.txt", "/home/spark/dstfile.txt");
-		deleteFile("/user/spark/example/");
+		downloadFile("/user/lenovo/example/file1.txt", "d:\\download.txt");
+//		deleteFile("/user/lenovo/example/");
 	}
 }

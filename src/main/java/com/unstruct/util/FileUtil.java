@@ -7,7 +7,6 @@ import java.util.List;
 public class FileUtil {
 
 	public static String getFileType(File file) {
-		// TODO Auto-generated method stub
 		String fileName = file.getName();
 		if (fileName.endsWith("doc")) {
 			return "doc";
@@ -16,7 +15,6 @@ public class FileUtil {
 	}
 
 	public static boolean isTextfile(File file) {
-		// TODO Auto-generated method stub
 		String fileName = file.getName();
 		if (fileName.toLowerCase().endsWith(".txt")) {
 			return true;
@@ -58,11 +56,13 @@ public class FileUtil {
 	
 	public static void main(String[] args) {
 	
-		List<File> fileList=new ArrayList<File>();
+	/*	List<File> fileList=new ArrayList<File>();
 		getFileList("/home/spark/input",fileList);
 		for (File file : fileList) {
 			System.out.println(file.getName());
 		}
-		System.out.println("total: "+fileList.size());
+		System.out.println("total: "+fileList.size());*/
+		String path=System.getProperty("user.dir");
+		System.out.println(path);
 	}
 }

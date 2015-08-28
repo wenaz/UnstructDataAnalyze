@@ -1,4 +1,4 @@
-package com.unstruct.test;
+package com.unstruct.basic;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,7 +67,6 @@ public class PoiTest {
 	}
 
 	public static String xls2String(File file) {
-		// TODO Auto-generated method stub
 
 		return null;
 	}
@@ -168,7 +167,7 @@ public class PoiTest {
 		// =================
 		row = sheet1.createRow((short) 4);
 		cell = row.createCell((short) 1);
-		cell.setCellValue("This is a test of merging");
+		cell.setCellValue("This is a basic of merging");
 
 		sheet1.addMergedRegion(new CellRangeAddress(4, // first row (0-based)
 				5, // last row (0-based)
@@ -192,7 +191,7 @@ public class PoiTest {
 
 		// Create a cell and put a value in it.
 		cell = row.createCell(1);
-		cell.setCellValue("This is a test of fonts");
+		cell.setCellValue("This is a basic of fonts");
 		cell.setCellStyle(style3);
 
 		// =============
@@ -250,7 +249,6 @@ public class PoiTest {
 			wb.write(fos);
 			fos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -437,9 +435,8 @@ public class PoiTest {
 				if (cell == null)
 					cell = row.createCell(3);
 				cell.setCellType(Cell.CELL_TYPE_STRING);
-				cell.setCellValue("a test aaaaaaaaaaa");
+				cell.setCellValue("a basic aaaaaaaaaaa");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -453,16 +450,12 @@ public class PoiTest {
 
 			System.out.println("====================");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (EncryptedDocumentException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (InvalidFormatException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -480,17 +473,14 @@ public class PoiTest {
 			PDFTextStripper stripper = new PDFTextStripper();
 			result = stripper.getText(document);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (fis != null) {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -498,7 +488,6 @@ public class PoiTest {
 				try {
 					document.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -515,16 +504,13 @@ public class PoiTest {
 			WordExtractor extractor=new WordExtractor(fis);
 			result.append(extractor.getText());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				fis.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -627,7 +613,6 @@ public class PoiTest {
 			 getContentXssf();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,4 +1,4 @@
-package com.unstruct.test;
+package com.unstruct.basic;
 
 import java.io.File;
 import java.io.FileOutputStream;

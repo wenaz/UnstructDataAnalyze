@@ -1,4 +1,4 @@
-package com.unstruct.test;
+package com.unstruct.basic;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,10 +24,8 @@ public class FileReaderTest {
 			}
 			System.out.println(result.toString());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch blockasd
 			e.printStackTrace();
 		}
 		result.delete(0, result.length());
@@ -43,10 +41,8 @@ public class FileReaderTest {
 				result.append(s + "\n"); // add '\n' ,last line more '\n'
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(result.toString());
@@ -75,7 +71,6 @@ public class FileReaderTest {
 			pw.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

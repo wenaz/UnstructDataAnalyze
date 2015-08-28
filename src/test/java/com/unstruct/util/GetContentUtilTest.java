@@ -33,36 +33,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-public class GetContentUtil {
+public class GetContentUtilTest {
 
-	public static String getContent(File file) {
-		// TODO Auto-generated method stub
-		String fileName=file.getName();
-		
-		
-		if(fileName.toLowerCase().endsWith(".txt")){
-			return txt2String(file);
-		}else if(fileName.toLowerCase().endsWith(".xls")){
-			return xls2String(file);
-		}else if(fileName.toLowerCase().endsWith(".xlsx")){
-			return xlsx2String(file);
-		}else if(fileName.toLowerCase().endsWith(".doc")){
-			return doc2String(file);
-		}else if(fileName.toLowerCase().endsWith(".docx")){
-			return docx2String(file);
-		}else if(fileName.toLowerCase().endsWith(".ppt")){
-			return ppt2String(file);
-		}else if(fileName.toLowerCase().endsWith(".pptx")){
-			return pptx2String(file);
-		}else if(fileName.toLowerCase().endsWith(".pdf")){
-			return pdf2String(file);
-		}else{
-			System.out.println("file:["+fileName+"] getContent error");
-			return null;
-		}
-	}
-
-	
 	public static String txt2String(File file) {
 		StringBuilder result = new StringBuilder();
 		BufferedReader br = null;
@@ -73,17 +45,14 @@ public class GetContentUtil {
 				result.append(s + "\n");
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (br != null) {
 				try {
 					br.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -113,13 +82,11 @@ public class GetContentUtil {
 			 * result.append(extractor.getText(true, true));
 			 */
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				fis.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -181,7 +148,6 @@ public class GetContentUtil {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -189,7 +155,6 @@ public class GetContentUtil {
 	}
 
 	public static String xls2String(File file) {
-		// TODO Auto-generated method stub
 		String result = "";
 		try {
 			HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(file));
@@ -200,7 +165,6 @@ public class GetContentUtil {
 			extractor.setIncludeHeadersFooters(true);
 			result = extractor.getText();
 		} catch (EncryptedDocumentException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
@@ -218,7 +182,6 @@ public class GetContentUtil {
 			extractor.setIncludeCellComments(true);
 			result = extractor.getText();
 		} catch (EncryptedDocumentException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
@@ -236,17 +199,14 @@ public class GetContentUtil {
 			PDFTextStripper stripper = new PDFTextStripper();
 			result = stripper.getText(document);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (fis != null) {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -254,7 +214,6 @@ public class GetContentUtil {
 				try {
 					document.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -270,16 +229,13 @@ public class GetContentUtil {
 			WordExtractor extractor = new WordExtractor(fis);
 			result.append(extractor.getText());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				fis.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -295,21 +251,37 @@ public class GetContentUtil {
 			XWPFWordExtractor extractor = new XWPFWordExtractor(document);
 			result.append(extractor.getText());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				fis.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return result.toString();
 	}
 
-	
+	public static void main(String[] args) {
+
+		System.out.println(txt2String(new File("/home/spark/input/file1.txt")));
+		System.out.println("-----------------");
+		System.out.println(doc2String(new File("/home/spark/input/wpf.doc")));
+		System.out.println("-----------------");
+		System.out.println(docx2String(new File("/home/spark/input/wpf.docx")));
+		System.out.println("-----------------");
+		System.out.println(xls2String(new File("/home/spark/input/workbook.xls")));
+		System.out.println("-----------------");
+		System.out.println(xlsx2String(new File("/home/spark/input/workbook.xlsx")));
+		System.out.println("-----------------");
+
+		System.out.println(ppt2String(new File("/home/spark/input/slide.ppt")));
+		System.out.println("-----------------");
+		System.out.println(pptx2String(new File("/home/spark/input/slide.pptx")));
+		System.out.println("-----------------");
+		System.out.println(pdf2String(new File("/home/spark/input/yun.pdf")));
+	}
+
 }
