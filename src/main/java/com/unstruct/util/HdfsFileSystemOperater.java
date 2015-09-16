@@ -24,7 +24,7 @@ public class HdfsFileSystemOperater {
 	
 	static{
 //		final String HADOOP_CONF_DIR = "file:///home/spark/opt/hadoop-2.6.0/etc/hadoop/";
-		final String HADOOP_CONF_DIR = System.getProperty("user.dir")+"\\src\\main\\config\\";
+		final String HADOOP_CONF_DIR = System.getProperty("user.dir")+"\\src\\main\\resources\\";
 		System.out.println(HADOOP_CONF_DIR);
 		conf=new Configuration();
 		conf.addResource(new Path(HADOOP_CONF_DIR + "core-site.xml"));

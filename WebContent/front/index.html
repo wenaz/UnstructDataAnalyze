@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link href="../css/layout.css" type="text/css" rel="stylesheet">
+    <link href="../css/jstree-themes/default/style.min.css" rel="stylesheet">
+
+    <script src="../js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="../js/jstree.min.js" type="text/javascript"></script>
+    <script src="../js/IndexJs.js"></script>
+</head>
+<body>
+<div id="container">
+
+    <div id="header">
+        <h1>Logo</h1>
+    </div>
+
+    <div id="navbar">首页</div>
+
+    <div id="menu">
+        <h2>文件目录</h2>
+        <div><input type="text" id="jstree_search"></div>
+        <div id="jstree">
+            <ul>
+                <li id="root_node_1" class="jstree-open">Root node 1
+                    <ul>
+                        <li id="child_node_1">
+                            <a href="#" class="jstree-clicked">Child node 1</a>
+                        </li>
+                        <li id="child_node_2" class="jstree-closed">Child node 2</li>
+                    </ul>
+                </li>
+                <li id="root_node_2">Root node 2</li>
+                <li id="root_node_3" data-jstree='{"disabled":true}'>Root node 3</li>
+            </ul>
+        </div>
+        <!--<button>demo button</button>-->
+    </div>
+
+    <div id="content">
+
+        <ul id="WDtoolBar">
+            <li id="reBack"><a href="#" parentId="0">返回上一层</a></li>
+            <li><a href="#" command="makeDir" id="newDir">新建文件夹</a></li>
+            <li><a href="#" command="upload" id="upload">上传</a></li>
+            <li><a href="#" command="makeDir" id="searchFile">搜索</a></li>
+            <li><input type="button" value="submit"></li>
+        </ul>
+
+        <p id="event_result"> Content goes here</p>
+    </div>
+
+    <div id="footer"><a href="index.html">&copy;<i>2015-</i>Copyright W3School.com.cn</a></div>
+
+    <script>
+
+    </script>
+    <script>
+
+    </script>
+
+</div>
+</body>
+</html>
