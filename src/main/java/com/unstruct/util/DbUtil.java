@@ -1,43 +1,75 @@
 package com.unstruct.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 
 public class DbUtil {
 
-	private String dbUrl="jdbc:mysql://localhost:3306/db_studentInfo";
-	private String dbUserName="root";
-	private String dbPassword="";
-	private String jdbcName="com.mysql.jdbc.Driver";
+	private static String dbUrl="jdbc:mysql://localhost:3306/db_studentInfo";
+	private static String dbUserName="root";
+	private static String dbPassword="";
+	private static String jdbcName="com.mysql.jdbc.Driver";
 
-	public Connection getCon() throws Exception{
-		Class.forName(jdbcName);
-		Connection con=DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
-		return con;
+	public static Connection getConnection(){
+		Connection conn=null;
+		try {
+			Class.forName(jdbcName);
+			conn=DriverManager.getConnection(dbUrl,dbUserName,dbPassword);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
 	}
-	
-	public void closeCon(Connection con)throws Exception{
-		if(con!=null){
-			con.close();
+
+	public static PreparedStatement prepare(Connection conn,String sql){
+		PreparedStatement pstmt=null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pstmt;
+	}
+
+	public static void close(Connection conn){
+		if(conn!=null){
+			try {
+				conn.close();
+				conn=null;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void close(Statement stmt){
+		if(stmt!=null){
+			try {
+				stmt.close();
+				stmt=null;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void close(ResultSet rs){
+		if(rs!=null){
+			try {
+				rs.close();
+				rs=null;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public static void main(String[] args) {
-		DbUtil dbUtil=new DbUtil();
-		Connection con=null;
-		try {
-			con=dbUtil.getCon();
-			System.out.println("数据库连接成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally{
-			try {
-				dbUtil.closeCon(con);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		Connection conn=DbUtil.getConnection();
+		System.out.println("ok");
+		DbUtil.close(conn);
 		
 	}
 
