@@ -29,7 +29,7 @@ import java.util.Set;
 @Scope("prototype")
 @Namespace("/")
 @Action("hello")
-@Results({@Result(name ="success",location = "/front/Hello.jsp"),@Result(name = "error", location = "/index.html")})
+@Results({@Result(name ="success",location = "/front/hello.jsp"),@Result(name = "error", location = "/index.html")})
 public class HelloAction extends ActionSupport{
 
     HttpServletRequest request = ServletActionContext.getRequest();
@@ -41,10 +41,15 @@ public class HelloAction extends ActionSupport{
     public String hello() {
         request.setAttribute("hello", "hello world from helloAction!");
 
-        Map<String,Method> hdfsFileEntityFields= HibernateUtil.getFields(HdfsFileEntity.class,null);
+        /*Map<String,Method> hdfsFileEntityFields= HibernateUtil.getFields(HdfsFileEntity.class,null);
         Set<String> hdfsFileEntityName=hdfsFileEntityFields.keySet();
         System.out.println(hdfsFileEntityName.toString());
         for (String name:hdfsFileEntityName){
+            System.out.println(name);
+        }*/
+
+        List<String> hdfsFileEntityFieldsList=HibernateUtil.getFieldsList(HdfsFileEntity.class,null);
+        for (String name:hdfsFileEntityFieldsList){
             System.out.println(name);
         }
 
@@ -56,7 +61,7 @@ public class HelloAction extends ActionSupport{
         }
 
 
-        request.setAttribute("title",hdfsFileEntityName);
+        request.setAttribute("title",hdfsFileEntityFieldsList);
         request.setAttribute("data",hdfsFileEntityList);
         return SUCCESS;
     }
