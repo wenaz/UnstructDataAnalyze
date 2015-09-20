@@ -29,7 +29,7 @@ import java.util.Set;
 @Scope("prototype")
 @Namespace("/")
 @Action("hello")
-@Results({@Result(name ="success",location = "/front/hello.jsp"),@Result(name = "error", location = "/index.html")})
+@Results({@Result(name ="success",location = "/front/Hello.jsp"),@Result(name = "error", location = "/index.html")})
 public class HelloAction extends ActionSupport{
 
     HttpServletRequest request = ServletActionContext.getRequest();

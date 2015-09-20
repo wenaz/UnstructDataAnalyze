@@ -21,13 +21,13 @@ $(function () {
             },
             "multiple" : false,
              */
-           /* 'data' : {
-                'url' : "../data/root.json",
+            'data' : {
+                'url' : "/hello",
                 'data' : function (node) {
                     return { 'id' : node.id };
                 },
                 dataType:"json"
-            }*/
+            }
            /* 'data' : [
                 'Simple root node',
                 {
