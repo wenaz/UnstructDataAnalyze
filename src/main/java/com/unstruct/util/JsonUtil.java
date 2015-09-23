@@ -3,7 +3,9 @@ package com.unstruct.util;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Date;
+import java.util.List;
 
+import com.unstruct.model.HdfsFileEntity;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -26,5 +28,22 @@ public class JsonUtil {
 			array.add(mapOfColValues);
 		}
 		return array;
+	}
+
+	public static JSONArray formatHdfsFileListToJsonArray(List<HdfsFileEntity> hdfsFileEntityList){
+		JSONArray jsonArray=new JSONArray();
+		for(HdfsFileEntity hdfsFileEntity:hdfsFileEntityList){
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("id",hdfsFileEntity.getFileId());
+			if(hdfsFileEntity.getParentId()==0){
+				jsonObject.put("parent","#");
+			}else {
+				jsonObject.put("parent", hdfsFileEntity.getParentId());
+			}
+			jsonObject.put("text",hdfsFileEntity.getFileName());
+			jsonArray.add(jsonObject);
+		}
+		return jsonArray;
+
 	}
 }

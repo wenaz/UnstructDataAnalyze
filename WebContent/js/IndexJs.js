@@ -21,13 +21,13 @@ $(function () {
             },
             "multiple" : false,
              */
-            'data' : {
+           /* 'data' : {
                 'url' : "/hello",
                 'data' : function (node) {
                     return { 'id' : node.id };
                 },
                 dataType:"json"
-            }
+            }*/
            /* 'data' : [
                 'Simple root node',
                 {
@@ -70,4 +70,31 @@ $(function () {
         $.jstree.reference('#jstree').select_node('child_node_1');*/
     });
 
+    initDirs();
+
 });
+
+function initDirs(){
+    var req=new XMLHttpRequest();
+    req.overrideMimeType("application/json");
+    req.open("GET","hello!createTree",true);
+    req.onreadystatechange=function receive(){
+      if(req.readyState==4){
+          console.log(req.responseText.trim());
+          var respData=JSON.parse(req.responseText.trim());
+          /*createTree(respData);*/
+          $('#jstree').jstree(true).settings.core.data = respData;
+          $('#jstree').jstree(true).refresh();
+      }
+    };
+    req.send();
+}
+
+function createTree(jsonData){
+    console.log(jsonData);
+    $('#jstree').jstree({
+        'core':{
+            'data':jsonData
+        }
+    });
+}

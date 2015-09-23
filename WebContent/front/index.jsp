@@ -1,3 +1,5 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lenovo-ang
@@ -44,9 +46,16 @@
 
     <p id="event_result"> Content goes here</p>
 
-    <table border="1" cellspacing="0" cellpadding="10">
+    <table>
       <tr>
-        <th></th>
+        <th>文件ID</th>
+        <th>文件名</th>
+        <th>父节点</th>
+        <th>文件大小</th>
+        <th>文件类型</th>
+        <th>文件URL</th>
+        <th>创建时间</th>
+        <th>所属用户</th>
       </tr>
 
 
@@ -63,6 +72,7 @@
         </tr>
       </c:forEach>
     </table>
+  <%--  <s:debug></s:debug>--%>
 
   </div>
 

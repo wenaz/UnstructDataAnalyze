@@ -66,7 +66,7 @@ public class HibernateUtil {
      * 获取实体所有字段
      * @param clazz 实体类型
      * @param strs 需要排除的字段
-     * @return 其中key为数据库字段名称，value为字段对应的get方法
+     * @return 其中key为数据库字段名称，value为字段对应的get方法  这里改成只用list返回key
      */
     public static List<String> getFieldsList(Class clazz,List<String> strs){
         List<String> fieldsList=new ArrayList<String>();
