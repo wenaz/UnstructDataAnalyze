@@ -18,7 +18,7 @@
 
    <!-- <package name="front" namespace="/" extends="struts-default">
         <action name="hello" class="com.unstruct.action.HelloAction">
-            <result name="success">/front/Hello.jsp</result>
+            <result name="success">/front/index.jsp</result>
         </action>
 
     </package>-->
