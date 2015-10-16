@@ -77,7 +77,7 @@ $(function () {
 function initDirs(){
     var req=new XMLHttpRequest();
     req.overrideMimeType("application/json");
-    req.open("GET","hello!createTree",true);
+    req.open("GET","hdfsFile!createTree",true);
     req.onreadystatechange=function receive(){
       if(req.readyState==4){
           console.log(req.responseText.trim());

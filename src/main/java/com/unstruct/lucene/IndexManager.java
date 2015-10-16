@@ -2,34 +2,47 @@ package com.unstruct.lucene;
 
 import com.unstruct.util.FileUtil;
 import com.unstruct.util.GetContentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.DocIdSetIterator;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.BytesRef;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class IndexManager {
 
 	private static final String INDEX_DIR="d:\\_index\\unstructindex";
+	private static final Log log= LogFactory.getLog(IndexManager.class);
+	private static Directory directory;
+
+	static {
+		try {
+			directory=FSDirectory.open(FileSystems.getDefault().getPath(INDEX_DIR));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Directory getDirectory(){
+		return directory;
+	}
 	
 	public static boolean createIndex(String path){
 		Date startDate=new Date();
@@ -51,6 +64,7 @@ public class IndexManager {
 			IndexWriter iWriter=null;
 			try {
 				IndexWriterConfig conf=new IndexWriterConfig(analyzer);
+//				conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 				iWriter=new IndexWriter(directory, conf);
 				Document doc=new Document();
 				doc.add(new Field("fileName", file.getName(),TextField.TYPE_STORED));
@@ -122,9 +136,46 @@ public class IndexManager {
 		
 	}
 
+	public static void printIndex(IndexReader reader) throws IOException {
+		log.debug(new Date()+"\n");
+		log.debug(reader+"\t该索引共含有"+reader.numDocs()+"篇文档\n");
+		System.out.println(reader+"\t该索引共含有"+reader.numDocs()+"篇文档\n");
+		for (int i=0;i<reader.numDocs();i++){
+			log.debug("文档" + i + ":" + reader.document(i) + "\n");
+			System.out.println("文档" + i + ":" + reader.document(i) + "\n");
+		}
+		Fields fields=MultiFields.getFields(reader);
+		Iterator<String> fieldsIterator=fields.iterator();
+		while(fieldsIterator.hasNext()){
+			String field=fieldsIterator.next();
+			Terms terms=fields.terms(field);
+			TermsEnum termsEnums=terms.iterator();
+			BytesRef byteRef = null;
+			System.out.println("field : "+ field);
+			while((byteRef = termsEnums.next()) != null) {
+				String term = new String(byteRef.bytes, byteRef.offset, byteRef.length);
+				System.out.println("term is : " + term);
+				System.out.println("出现该词的文档数:"+termsEnums.docFreq());
+			}
+			System.out.println("=============");
+			Term nt=new Term(field,"many");
+			System.out.println(termsEnums.seekExact(nt.bytes()));
+			DocsAndPositionsEnum dape=termsEnums.docsAndPositions(null,null);
+			while(dape.nextDoc()!= DocIdSetIterator.NO_MORE_DOCS){
+				System.out.println("出现位置："+dape.nextPosition()+"\t"+"");
+				dape.freq();
+				dape.docID();
+
+			}
+
+			System.out.println();
+		}
+
+	}
+
 
 	public static void main(String[] args) {
-		createIndex("d:\\dir");
+//		createIndex("d:\\dir");
 		Scanner scanner=new Scanner(new BufferedInputStream(System.in));
 		String input="";
 		while(!"end".equals(input=scanner.nextLine())){
@@ -133,6 +184,12 @@ public class IndexManager {
 				System.out.println(fileName);
 			}
 			System.out.println("请输入搜索条件：");
+		}
+		try {
+			IndexReader reader=DirectoryReader.open(directory);
+			printIndex(reader);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
