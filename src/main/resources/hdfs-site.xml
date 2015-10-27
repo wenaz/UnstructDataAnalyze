@@ -17,30 +17,35 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-	 <property>
-        <name>dfs.replication</name>
-        <value>1</value>
-    </property>
-    <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>file:/hadoop/data/dfs/namenode</value>
-    </property>
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>file:/hadoop/data/dfs/datanode</value>
-    </property>
+	<property>
+        	<name>dfs.replication</name>
+        	<value>3</value>
+	</property>
+	<property>
+        	<name>dfs.namenode.name.dir</name>
+        	<value>file:///home/labofbigdata/tmp/hadoop/dfs/namenode</value>
+	</property>
+	<property>
+        	<name>dfs.datanode.data.dir</name>
+        	<value>file:///home/labofbigdata/tmp/hadoop/dfs/datanode</value>
+	</property>
+
 	
 	<property>
-        <name>dfs.webhdfs.enabled</name>
-        <value>true</value>
-    </property>  
-    <property>
-        <name>dfs.permissions</name>
-        <value>false</value>
-    </property>
+		 <name>dfs.webhdfs.enabled</name>
+        	<value>true</value>
+	</property>  
+	<property>
+		 <name>dfs.permissions</name>
+		<value>false</value>
+	</property>
 	<property>
 		<name>dfs.http.address</name>
-		<value>127.0.0.1:50070</value>
+		<value>master:50070</value>
 	</property>
-	
+        <property>
+                <name>dfs.namenode.secondary.http.address</name>
+                <value>master:50090</value>
+        </property>
+
 </configuration>

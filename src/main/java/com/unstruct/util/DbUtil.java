@@ -5,9 +5,9 @@ import java.sql.*;
 
 public class DbUtil {
 
-	private static String dbUrl="jdbc:mysql://localhost:3306/db_studentInfo";
+	private static String dbUrl="jdbc:mysql://localhost:3306/unstructdata";
 	private static String dbUserName="root";
-	private static String dbPassword="";
+	private static String dbPassword="root";
 	private static String jdbcName="com.mysql.jdbc.Driver";
 
 	public static Connection getConnection(){

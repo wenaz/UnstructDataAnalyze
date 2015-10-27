@@ -28,7 +28,7 @@ import java.util.*;
 
 public class IndexManager {
 
-	private static final String INDEX_DIR="d:\\_index\\unstructindex";
+	private static final String INDEX_DIR="/home/labofbigdata/tmp/index_unstuctdata";
 	private static final Log log= LogFactory.getLog(IndexManager.class);
 	private static Directory directory;
 
@@ -137,11 +137,11 @@ public class IndexManager {
 	}
 
 	public static void printIndex(IndexReader reader) throws IOException {
-		log.debug(new Date()+"\n");
-		log.debug(reader+"\t该索引共含有"+reader.numDocs()+"篇文档\n");
+		/*log.debug(new Date()+"\n");
+		log.debug(reader+"\t该索引共含有"+reader.numDocs()+"篇文档\n");*/
 		System.out.println(reader+"\t该索引共含有"+reader.numDocs()+"篇文档\n");
 		for (int i=0;i<reader.numDocs();i++){
-			log.debug("文档" + i + ":" + reader.document(i) + "\n");
+//			log.debug("文档" + i + ":" + reader.document(i) + "\n");
 			System.out.println("文档" + i + ":" + reader.document(i) + "\n");
 		}
 		Fields fields=MultiFields.getFields(reader);
@@ -152,20 +152,23 @@ public class IndexManager {
 			TermsEnum termsEnums=terms.iterator();
 			BytesRef byteRef = null;
 			System.out.println("field : "+ field);
+			System.out.println("=========================================");
 			while((byteRef = termsEnums.next()) != null) {
 				String term = new String(byteRef.bytes, byteRef.offset, byteRef.length);
-				System.out.println("term is : " + term);
-				System.out.println("出现该词的文档数:"+termsEnums.docFreq());
+				System.out.println("term is : " + term+"\t |出现该词的文档数:"+termsEnums.docFreq());
 			}
-			System.out.println("=============");
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+
+
 			Term nt=new Term(field,"many");
 			System.out.println(termsEnums.seekExact(nt.bytes()));
 			DocsAndPositionsEnum dape=termsEnums.docsAndPositions(null,null);
 			while(dape.nextDoc()!= DocIdSetIterator.NO_MORE_DOCS){
-				System.out.println("出现位置："+dape.nextPosition()+"\t"+"");
-				dape.freq();
-				dape.docID();
-
+				System.out.print("文章编号"+dape.docID()+",\t出现次数："+dape.freq()+",\t出现位置：");
+				for (int i=0;i<dape.freq();i++){
+					System.out.print("[" + dape.nextPosition() + "]");
+				}
+				System.out.println();
 			}
 
 			System.out.println();
@@ -175,7 +178,7 @@ public class IndexManager {
 
 
 	public static void main(String[] args) {
-//		createIndex("d:\\dir");
+		createIndex("/home/labofbigdata/tmp/labData");
 		Scanner scanner=new Scanner(new BufferedInputStream(System.in));
 		String input="";
 		while(!"end".equals(input=scanner.nextLine())){

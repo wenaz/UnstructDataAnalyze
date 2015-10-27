@@ -266,22 +266,31 @@ public class GetContentUtilTest {
 
 	public static void main(String[] args) {
 
-		System.out.println(txt2String(new File("/home/spark/input/file1.txt")));
+		System.out.println(txt2String(new File("/home/labofbigdata/tmp/labData/file1.txt")));
 		System.out.println("-----------------");
-		System.out.println(doc2String(new File("/home/spark/input/wpf.doc")));
-		System.out.println("-----------------");
+		System.out.println(doc2String(new File("/home/labofbigdata/tmp/labData/child/开发日志20150817.doc")));
+
+
+
+		/*System.out.println("-----------------");
 		System.out.println(docx2String(new File("/home/spark/input/wpf.docx")));
+
+
 		System.out.println("-----------------");
 		System.out.println(xls2String(new File("/home/spark/input/workbook.xls")));
-		System.out.println("-----------------");
-		System.out.println(xlsx2String(new File("/home/spark/input/workbook.xlsx")));
-		System.out.println("-----------------");
 
+		System.out.println("-----------------");
 		System.out.println(ppt2String(new File("/home/spark/input/slide.ppt")));
+
+
 		System.out.println("-----------------");
-		System.out.println(pptx2String(new File("/home/spark/input/slide.pptx")));
+		System.out.println(pdf2String(new File("/home/spark/input/yun.pdf")));*/
+
 		System.out.println("-----------------");
-		System.out.println(pdf2String(new File("/home/spark/input/yun.pdf")));
+		System.out.println(xlsx2String(new File("/home/labofbigdata/tmp/labData/child/周记模板.xlsx")));
+
+		System.out.println("-----------------");
+		System.out.println(pptx2String(new File("/home/labofbigdata/tmp/labData/child/Big-data.pptx")));
 	}
 
 }
